@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import ProjectCard from "../component/ProjectCard";
 import "../styles/portfolio.css";
 
 export const projects = [
@@ -45,7 +44,8 @@ export const projects = [
   {
     id: "automotoresDamian-api",
     title: "E-commerce Automotores Damian e Hijo",
-    description: "PROXIMAMENTE... Pagina Web completa para tienda online con gestión de productos, carrito, pedidos y pagos.",
+    soon: true,
+    description: "Página web completa para tienda online con gestión de productos, carrito, pedidos y pagos.",
     tags: ["Node.js", "MongoDB", "Docker", "AWS"],
     github: "#", 
     demo: "#",   
@@ -59,54 +59,21 @@ export const projects = [
 
 export default function Portfolio() {
   return (
-    <div className="portfolio-page">
-      <div className="portfolio-container">
+    <div className="page">
+      <div className="container">
+        <header className="page-head">
+          <span className="eyebrow rise" style={{ "--i": 0 }}>Portfolio</span>
+          <h1 className="rise" style={{ "--i": 1 }}>Mis <em>proyectos</em></h1>
+          <p className="rise" style={{ "--i": 2 }}>Una selección de proyectos en los que trabajé.</p>
+        </header>
 
-        {/* HEADER */}
-        <div className="portfolio-header">
-          <h1>Mis <span>Proyectos</span></h1>
-          <p>Una selección de proyectos en los que trabajé.</p>
-        </div>
-
-        {/* GRID */}
         <div className="projects-grid">
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              to={`/project/${project.id}`}
-              className="project-card"
-            >
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-
-              <div className="project-tags">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="project-tag">{tag}</span>
-                ))}
-              </div>
-
-              <div className="project-links">
-                {project.github && project.github !== "#" && (
-                  <span
-                    className="project-link"
-                    onClick={(e) => { e.preventDefault(); window.open(project.github, "_blank"); }}
-                  >
-                    <FaGithub /> GitHub
-                  </span>
-                )}
-                {project.demo && project.demo !== "#" && (
-                  <span
-                    className="project-link"
-                    onClick={(e) => { e.preventDefault(); window.open(project.demo, "_blank"); }}
-                  >
-                    <FaExternalLinkAlt /> Demo
-                  </span>
-                )}
-              </div>
-            </Link>
+          {projects.map((project, i) => (
+            <div key={project.id} className="rise" style={{ "--i": i + 3 }}>
+              <ProjectCard project={project} index={i} />
+            </div>
           ))}
         </div>
-
       </div>
     </div>
   );

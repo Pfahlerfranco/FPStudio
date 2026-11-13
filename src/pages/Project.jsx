@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from "react-icons/fa";
 import { projects } from "./Portfolio";
 import Carousel from "../component/Carousel";
+import "../styles/about.css";
 import "../styles/project.css";
 
 export default function Project() {
@@ -10,12 +11,12 @@ export default function Project() {
 
   if (!project) {
     return (
-      <div className="project-page">
-        <div className="project-detail-container">
-          <div className="project-not-found">
-            <h2>Proyecto no encontrado</h2>
-            <Link to="/portfolio">← Volver al portfolio</Link>
-          </div>
+      <div className="page">
+        <div className="container container--narrow project-not-found">
+          <h1>Proyecto no encontrado</h1>
+          <Link to="/portfolio" className="btn btn--ghost">
+            <FaArrowLeft /> Volver al portfolio
+          </Link>
         </div>
       </div>
     );
@@ -25,34 +26,36 @@ export default function Project() {
     ? project.images.map((url, i) => ({ id: i, image: url, title: `${project.title} - ${i + 1}` }))
     : [];
 
-  return (
-    <div className="project-page">
-      <div className="project-detail-container">
+  const hasGithub = project.github && project.github !== "#";
+  const hasDemo = project.demo && project.demo !== "#";
 
-        {/* BACK */}
+  return (
+    <div className="page">
+      <div className="container container--narrow">
         <Link to="/portfolio" className="project-back">
           <FaArrowLeft /> Volver al portfolio
         </Link>
 
-        {/* HEADER */}
-        <div className="project-detail-header">
-          <h1>{project.title}</h1>
+        <header className="page-head">
+          {project.soon && <span className="eyebrow rise" style={{ "--i": 0 }}>Próximamente</span>}
+          <h1 className="rise" style={{ "--i": 1 }}>{project.title}</h1>
 
-          <div className="project-detail-links">
-            {project.github && project.github !== "#" && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-detail-link secondary">
-                <FaGithub /> Ver en GitHub
-              </a>
-            )}
-            {project.demo && project.demo !== "#" && (
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-detail-link primary">
-                <FaExternalLinkAlt /> Ver demo
-              </a>
-            )}
-          </div>
-        </div>
+          {(hasGithub || hasDemo) && (
+            <div className="project-detail-links rise" style={{ "--i": 2 }}>
+              {hasDemo && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+                  <FaExternalLinkAlt /> Ver demo
+                </a>
+              )}
+              {hasGithub && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+                  <FaGithub /> Ver en GitHub
+                </a>
+              )}
+            </div>
+          )}
+        </header>
 
-        {/* GALLERY */}
         {imageItems.length > 0 && (
           <div className="project-detail-gallery">
             <Carousel
@@ -67,22 +70,19 @@ export default function Project() {
           </div>
         )}
 
-        {/* DESCRIPTION */}
-        <div className="project-detail-description">
-          <h2>Descripción</h2>
-          <p>{project.description}</p>
-        </div>
+        <section className="about-row">
+          <h2 className="section-label">Descripción</h2>
+          <p className="project-desc">{project.description}</p>
+        </section>
 
-        {/* TECH STACK */}
-        <div className="project-detail-tech">
-          <h2>Tecnologías</h2>
-          <div className="project-detail-tags">
+        <section className="about-row">
+          <h2 className="section-label">Tecnologías</h2>
+          <ul className="project-detail-tags">
             {project.tags.map((tag) => (
-              <span key={tag} className="project-detail-tag">{tag}</span>
+              <li key={tag} className="skill-badge">{tag}</li>
             ))}
-          </div>
-        </div>
-
+          </ul>
+        </section>
       </div>
     </div>
   );

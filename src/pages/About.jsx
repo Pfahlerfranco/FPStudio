@@ -1,59 +1,89 @@
 import { FaDownload } from "react-icons/fa";
 import "../styles/about.css";
 
-const skills = [
-  "Node.js", "Python", "JavaScript", "TypeScript",
-  "Express.js", "FastAPI", "PostgreSQL", "MySQL",
-  "MongoDB", "Redis", "Docker", "Git",
-  "REST APIs", "React", "Linux", "AWS", "CMS", "Windows", "Agile", "Scrum", ".NET"  
+const skillGroups = [
+  { label: "Backend", items: ["Node.js", "Express.js", "Python", "FastAPI", ".NET", "REST APIs"] },
+  { label: "Frontend", items: ["JavaScript", "TypeScript", "React", "CMS"] },
+  { label: "Datos", items: ["PostgreSQL", "MySQL", "MongoDB", "Redis"] },
+  { label: "Infra y herramientas", items: ["Docker", "AWS", "Linux", "Windows", "Git"] },
+  { label: "Metodologías", items: ["Agile", "Scrum"] },
+];
+
+const facts = [
+  { k: "Ubicación", v: "Buenos Aires, Argentina" },
+  { k: "Estudios", v: "Lic. en Informática, UNAHUR (3er año)" },
+  { k: "Foco", v: "APIs, bases de datos y apps web" },
 ];
 
 export default function About() {
   return (
-    <div className="about-page">
-      <div className="about-container">
-
-        {/* HEADER */}
-        <div className="about-header">
-          <h1>Sobre <span>mí</span></h1>
-          <p>Developer Full Stack Jr enfocado en construir APIs robustas y Aplicaciones Web escalables.</p>
-        </div>
-
-        {/* BIO */}
-        <section className="about-bio">
-          <h2>Biografia</h2>
-          <p>
-            Soy Franco Pfahler de 26 años, Desarrollador Full Stack Jr con base en Buenos Aires, Argentina.
-            Estudiante de 3er año en la Licenciatura en Informatica en la Universidad Nacional de Hurlingham.
-            Me especializo en el diseño e implementación de APIs, arquitecturas de Bases de Datos
-            y Aplicaciones Web de alto rendimiento.
+    <div className="page">
+      <div className="container container--narrow">
+        <header className="page-head">
+          <span className="eyebrow rise" style={{ "--i": 0 }}>Sobre mí</span>
+          <h1 className="rise" style={{ "--i": 1 }}>
+            APIs robustas y apps web <em>escalables</em>
+          </h1>
+          <p className="rise" style={{ "--i": 2 }}>
+            Developer Full Stack Jr enfocado en construir software que funcione en producción.
           </p>
-          <p>
-            Mi enfoque está en escribir código limpio, escalable y bien documentado.
-            Disfruto resolver problemas complejos y aprender nuevas tecnologías para
-            entregar soluciones que realmente funcionen en producción, y pueda satisfacer la necesidad del cliente.
-          </p>
+        </header>
+
+        <section className="about-row">
+          <h2 className="section-label">Biografía</h2>
+          <div className="about-bio">
+            <p>
+              Soy Franco Pfahler, tengo 26 años y soy Desarrollador Full Stack Jr con base en
+              Buenos Aires, Argentina. Estudio la Licenciatura en Informática en la Universidad
+              Nacional de Hurlingham (3er año). Me especializo en el diseño e implementación de
+              APIs, arquitecturas de bases de datos y aplicaciones web de alto rendimiento.
+            </p>
+            <p>
+              Mi enfoque está en escribir código limpio, escalable y bien documentado. Disfruto
+              resolver problemas complejos y aprender nuevas tecnologías para entregar soluciones
+              que realmente funcionen en producción y satisfagan la necesidad del cliente.
+            </p>
+
+            <dl className="about-facts">
+              {facts.map(({ k, v }) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </section>
 
-        {/* SKILLS */}
-        <section className="about-skills">
-          <h2>Tech Stack</h2>
-          <div className="skills-grid">
-            {skills.map((skill) => (
-              <span key={skill} className="skill-badge">{skill}</span>
+        <section className="about-row">
+          <h2 className="section-label">Tech stack</h2>
+          <div className="skill-groups">
+            {skillGroups.map(({ label, items }) => (
+              <div key={label} className="skill-group">
+                <h3>{label}</h3>
+                <ul>
+                  {items.map((skill) => (
+                    <li key={skill} className="skill-badge">{skill}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* CV */}
-        <section className="about-cv">
-          {/* Cuando quiera actualizar el CV, voy a Public */}
-          <a href="/FPStudio/cv_FrancoPfahler_Desarrollador2026.pdf" download className="cv-btn">
-            <FaDownload />
-            Descargar CV
-          </a>
+        <section className="about-row about-cv">
+          <h2 className="section-label">Currículum</h2>
+          <div>
+            {/* Para actualizar el CV, reemplazá el archivo en /public */}
+            <a
+              href={`${import.meta.env.BASE_URL}cv_FrancoPfahler_Desarrollador2026.pdf`}
+              download
+              className="btn btn--primary"
+            >
+              <FaDownload /> Descargar CV
+            </a>
+          </div>
         </section>
-
       </div>
     </div>
   );
