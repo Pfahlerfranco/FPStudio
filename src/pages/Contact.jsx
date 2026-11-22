@@ -1,15 +1,26 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import "../styles/contact.css";
 
-const EMAILJS_SERVICE_ID  = "franzierserviceweb";
-const EMAILJS_TEMPLATE_ID = "template_k51ya5c";
-const EMAILJS_PUBLIC_KEY  = "5MX2zFHfh-kt0lB7M";
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
   const formRef = useRef(null);
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
+
+  const handleChange = () => {
+    if (status === "error" || status === "success") setStatus("idle");
+  };
+
+  useEffect(() => {
+    if (status === "success") {
+      const t = setTimeout(() => setStatus("idle"), 5000);
+      return () => clearTimeout(t);
+    }
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

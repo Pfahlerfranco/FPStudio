@@ -102,6 +102,11 @@
   resize: none;
 }
 
+.field input:focus-visible,
+.field textarea:focus-visible {
+  box-shadow: 0 1px 0 0 var(--accent);
+}
+
 .field input::placeholder,
 .field textarea::placeholder {
   color: rgba(153, 157, 145, 0.5);
