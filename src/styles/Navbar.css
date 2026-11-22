@@ -21,8 +21,11 @@
   transition: opacity 200ms ease;
 }
 
-.logo span {
-  color: var(--accent);
+.logo-img {
+  display: block;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
 }
 
 /* ESCRITORIO */

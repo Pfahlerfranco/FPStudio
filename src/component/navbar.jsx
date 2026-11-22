@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
+import logo from "../images/logo-fp.png";
 import "../styles/Navbar.css";
 
 const links = [
@@ -31,7 +32,7 @@ export default function Navbar() {
   return (
     <div className="navbar-container">
       <NavLink to="/" className="logo" onClick={closeMenu} aria-label="FP Studio, inicio">
-        <span>&lt;</span>FP<span>/&gt;</span>
+        <img src={logo} alt="" className="logo-img" width="44" height="44" />
       </NavLink>
 
       {/* Escritorio */}
