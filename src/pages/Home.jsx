@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
-import SplitText from "../component/SplitText";
-import FloatingLines from "../component/FloatingLines";
+import { motion } from "motion/react";
+import { FiArrowDownRight, FiArrowUpRight } from "react-icons/fi";
 import ProjectCard from "../component/ProjectCard";
 import { projects } from "./Portfolio";
 import "../styles/home.css";
 
-const stack = ["Node.js", "Python", "React", "PostgreSQL", "MongoDB", "Docker"];
+const ease = [0.22, 1, 0.36, 1];
 
 export default function Home() {
   const featured = projects.slice(0, 3);
@@ -14,67 +13,99 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <div className="hero-bg" aria-hidden="true">
-          <FloatingLines
-            linesGradient={["#c5f23d", "#3ddc97", "#1a8f7a"]}
-            lineCount={[5, 7, 5]}
-            lineDistance={[5, 7, 5]}
-          />
-        </div>
+        <div className="hero-grid" aria-hidden="true" />
 
-        <div className="hero-content container">
-          <span className="hero-status rise" style={{ "--i": 0 }}>
-            <span className="hero-status-dot" aria-hidden="true" />
-            Disponible para trabajar · Buenos Aires
-          </span>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease }}
+          className="hero-status"
+        >
+          <span className="hero-dot" />
+          Disponible para trabajar · Buenos Aires
+        </motion.div>
 
-          <SplitText
-            tag="h1"
-            text="Franco Pfahler"
-            className="hero-title"
-            delay={40}
-            duration={1}
-            textAlign="left"
-            from={{ opacity: 0, y: 32 }}
-          />
-
-          <p className="hero-subtitle rise" style={{ "--i": 3 }}>
+        <div className="hero-body">
+          <p className="hero-lead">
             Developer Full Stack Jr. Construyo APIs, bases de datos y
             aplicaciones web.
           </p>
 
-          <div className="hero-buttons rise" style={{ "--i": 4 }}>
-            <Link to="/portfolio" className="btn btn--primary">
-              Ver proyectos <FaArrowRight />
-            </Link>
-            <Link to="/contact" className="btn btn--ghost">Contactame</Link>
-          </div>
+          <motion.h1
+            initial={{ opacity: 0, y: 70 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.12, ease }}
+            className="hero-first"
+            aria-label="Franco Pfahler"
+          >
+            Franco
+          </motion.h1>
 
-          <ul className="hero-stack rise" style={{ "--i": 5 }} aria-label="Stack principal">
-            {stack.map((s) => (
-              <li key={s}>{s}</li>
-            ))}
-          </ul>
+          <div className="hero-row">
+            <motion.p
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.1, delay: 0.25, ease }}
+              className="hero-last"
+              aria-hidden="true"
+            >
+              Pfahler
+            </motion.p>
+
+            <div className="hero-actions">
+              <Link to="/portfolio" className="link-line">
+                Ver proyectos <FiArrowDownRight size={18} className="to-se" />
+              </Link>
+              <Link to="/contact" className="link-line">
+                Contactame <FiArrowUpRight size={18} className="to-ne" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="page home-projects">
-        <div className="container">
-          <div className="home-projects-head">
-            <div>
-              <span className="eyebrow">Trabajo reciente</span>
-              <h2>Proyectos destacados</h2>
-            </div>
-            <Link to="/portfolio" className="home-all">
-              Ver todos <FaArrowRight />
-            </Link>
+      <section className="section section--top">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="label">01 / Trabajo reciente</span>
+            <h2 className="sec-title em-muted">
+              Proyectos
+              <br />
+              <em>destacados</em>
+            </h2>
           </div>
 
-          <div className="projects-grid">
+          <div className="projects-list">
             {featured.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />
             ))}
           </div>
+
+          <div className="home-more">
+            <Link to="/portfolio" className="link-line">
+              Ver todos los proyectos <FiArrowUpRight size={18} className="to-ne" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--top">
+        <div className="wrap home-cta">
+          <div>
+            <span className="label">02 / Contacto</span>
+            <h2 className="sec-title em-accent home-cta-title">
+              Ponete en
+              <br />
+              <em>contacto.</em>
+            </h2>
+            <p className="lead home-cta-text">
+              ¿Tenés un proyecto en mente o querés trabajar juntos? Mandame un
+              mensaje y te respondo a la brevedad.
+            </p>
+          </div>
+          <Link to="/contact" className="btn btn--primary home-cta-btn">
+            Enviar mensaje <FiArrowUpRight size={18} />
+          </Link>
         </div>
       </section>
     </>

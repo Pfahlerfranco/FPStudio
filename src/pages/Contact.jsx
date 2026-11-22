@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { FaGithub, FaLinkedin, FaEnvelope, FaPaperPlane } from "react-icons/fa";
+import { FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import "../styles/contact.css";
-
 
 const EMAILJS_SERVICE_ID  = "franzierserviceweb";
 const EMAILJS_TEMPLATE_ID = "template_k51ya5c";
@@ -31,76 +30,78 @@ export default function Contact() {
   };
 
   return (
-    <div className="page">
-      <div className="container contact-layout">
-        <header className="contact-intro">
-          <span className="eyebrow rise" style={{ "--i": 0 }}>Contacto</span>
-          <h1 className="rise" style={{ "--i": 1 }}>
-            Ponete en <em>contacto</em>
+    <section className="section section--page">
+      <div className="wrap contact-grid">
+        <div>
+          <span className="label rise" style={{ "--i": 0 }}>Contacto</span>
+          <h1 className="sec-title em-accent contact-title rise" style={{ "--i": 1 }}>
+            Ponete en
+            <br />
+            <em>contacto.</em>
           </h1>
-          <p className="rise" style={{ "--i": 2 }}>
+          <p className="lead contact-lead rise" style={{ "--i": 2 }}>
             ¿Tenés un proyecto en mente o querés trabajar juntos? Mandame un mensaje
             y te respondo a la brevedad.
           </p>
 
-          <ul className="contact-social-links rise" style={{ "--i": 3 }}>
+          <ul className="contact-links rise" style={{ "--i": 3 }}>
             <li>
-              <a href="mailto:pfahlerfranco@gmail.com" className="contact-social-link">
-                <FaEnvelope /> pfahlerfranco@gmail.com
+              <a href="mailto:pfahlerfranco@gmail.com">
+                <FiMail size={16} /> pfahlerfranco@gmail.com
               </a>
             </li>
             <li>
-              <a href="https://github.com/Pfahlerfranco" target="_blank" rel="noopener noreferrer" className="contact-social-link">
-                <FaGithub /> github.com/Pfahlerfranco
+              <a href="https://github.com/Pfahlerfranco" target="_blank" rel="noopener noreferrer">
+                <FiGithub size={16} /> github.com/Pfahlerfranco
               </a>
             </li>
             <li>
-              <a href="https://www.linkedin.com/in/franco-pfahler/" target="_blank" rel="noopener noreferrer" className="contact-social-link">
-                <FaLinkedin /> linkedin.com/in/franco-pfahler
+              <a href="https://www.linkedin.com/in/franco-pfahler/" target="_blank" rel="noopener noreferrer">
+                <FiLinkedin size={16} /> linkedin.com/in/franco-pfahler
               </a>
             </li>
           </ul>
-        </header>
+        </div>
 
         <form ref={formRef} className="contact-form rise" style={{ "--i": 2 }} onSubmit={handleSubmit}>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="from_name">Nombre</label>
+          <div className="field-row">
+            <label className="field" htmlFor="from_name">
+              <span>Nombre</span>
               <input id="from_name" name="from_name" type="text" placeholder="Tu nombre" autoComplete="name" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="reply_to">Email</label>
+            </label>
+            <label className="field" htmlFor="reply_to">
+              <span>Email</span>
               <input id="reply_to" name="reply_to" type="email" placeholder="tu@email.com" autoComplete="email" autoCapitalize="none" required />
-            </div>
+            </label>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="subject">Asunto</label>
+          <label className="field" htmlFor="subject">
+            <span>Asunto</span>
             <input id="subject" name="subject" type="text" placeholder="¿De qué se trata?" required />
-          </div>
+          </label>
 
-          <div className="form-group">
-            <label htmlFor="message">Mensaje</label>
-            <textarea id="message" name="message" rows={6} placeholder="Contame sobre tu proyecto o consulta..." required />
-          </div>
+          <label className="field" htmlFor="message">
+            <span>Mensaje</span>
+            <textarea id="message" name="message" rows={4} placeholder="Contame sobre tu proyecto o consulta..." required />
+          </label>
 
           <div role="status" aria-live="polite">
             {status === "success" && (
-              <div className="form-feedback success">Mensaje enviado. Te respondo pronto.</div>
+              <p className="form-feedback success">Mensaje enviado. Te respondo pronto.</p>
             )}
             {status === "error" && (
-              <div className="form-feedback error">
+              <p className="form-feedback error">
                 Hubo un error al enviar. Intentá de nuevo o escribime directamente.
-              </div>
+              </p>
             )}
           </div>
 
           <button type="submit" className="btn btn--primary form-submit" disabled={status === "loading"}>
-            <FaPaperPlane />
             {status === "loading" ? "Enviando..." : "Enviar mensaje"}
+            <FiArrowUpRight size={18} />
           </button>
         </form>
       </div>
-    </div>
+    </section>
   );
 }

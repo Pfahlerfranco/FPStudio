@@ -1,11 +1,11 @@
 .carousel-container {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 12px;
-  background: var(--surface);
-  --outer-r: 20px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0;
+  background: var(--card);
+  --outer-r: 0px;
   --p-distance: 12px;
 }
 
@@ -20,8 +20,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  border: 1px solid var(--line);
-  border-radius: calc(var(--outer-r) - var(--p-distance));
+  border: 1px solid var(--border);
+  border-radius: 0;
   background-color: #0d0716;
   overflow: hidden;
   cursor: grab;
@@ -34,8 +34,8 @@
 
 .carousel-item--image {
   border: none;
-  border-radius: 12px;
-  background: #000;
+  border-radius: 0;
+  background: var(--card);
 }
 
 .carousel-item-img {
@@ -44,18 +44,18 @@
   object-fit: cover;
   display: block;
   pointer-events: none;
-  border-radius: 12px;
+  border-radius: 0;
 }
 
 .carousel-container.round {
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
 }
 
 .carousel-item.round {
   background-color: #0d0716;
   position: relative;
   bottom: 0.1em;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -148,5 +148,5 @@
 }
 
 .carousel-indicator.inactive {
-  background-color: var(--line-strong);
+  background-color: rgba(240, 240, 233, 0.3);
 }

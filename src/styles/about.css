@@ -1,122 +1,168 @@
-/* Filas label | contenido, separadas por líneas (sin cards) */
+/* CABECERA */
 
-.about-row {
+.about-head .wrap {
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 24px 48px;
-  padding-block: clamp(32px, 5vw, 48px);
-  border-bottom: 1px solid var(--line);
+  gap: 32px;
 }
 
-.about-row:last-child {
-  border-bottom: 0;
+.about-title {
+  max-width: 14ch;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.25rem, 9vw, 8rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
 }
 
-.about-row .section-label {
-  padding-top: 6px;
+/* PERFIL — bloque lima a todo el ancho */
+
+.about-profile {
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
-.about-bio p {
-  max-width: 62ch;
-  margin-bottom: 18px;
-  font-size: clamp(1rem, 1.5vw, 1.0625rem);
-  line-height: 1.75;
-  color: #d4d3cd;
-  text-wrap: pretty;
+.about-profile ::selection {
+  background: var(--accent-ink);
+  color: var(--accent);
+}
+
+.about-profile-grid {
+  display: grid;
+  gap: 64px;
+}
+
+.about-profile .label {
+  color: var(--accent-ink);
+}
+
+.about-statement {
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.4vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.about-profile-cols {
+  display: grid;
+  gap: 40px;
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.about-prose {
+  display: grid;
+  gap: 16px;
+  font-size: 1.125rem;
+  line-height: 1.625;
 }
 
 .about-facts {
   display: grid;
-  gap: 0;
-  margin-top: 32px;
-  border-top: 1px solid var(--line);
-}
-
-.about-facts > div {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 16px;
+  align-content: start;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
 .about-facts dt {
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .about-profile-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .about-profile-label {
+    grid-column: span 3;
+  }
+  .about-profile-body {
+    grid-column: span 9;
+  }
+  .about-profile-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+/* STACK — filas numeradas */
+
+.about-stack-head {
+  display: grid;
+  gap: 32px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 768px) {
+  .about-stack-head {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.stack-row {
+  display: grid;
+  gap: 16px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 200ms ease;
+}
+
+.stack-num {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding-top: 3px;
-}
-
-.about-facts dd {
-  font-size: 0.9375rem;
-}
-
-/* STACK */
-
-.skill-groups {
-  display: grid;
-  gap: 24px;
-}
-
-.skill-group {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 8px 24px;
-  align-items: start;
-}
-
-.skill-group h3 {
-  padding-top: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 12px;
   color: var(--muted);
 }
 
-.skill-group ul {
-  list-style: none;
+.stack-row h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 2.25rem;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.stack-row ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  align-content: center;
+  gap: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.skill-badge {
-  padding: 6px 14px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+@media (min-width: 768px) {
+  .stack-row {
+    grid-template-columns: 80px 1fr 1fr;
+    align-items: center;
+    padding-inline: 16px;
+  }
+  .stack-row h3 {
+    font-size: 3rem;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .skill-badge:hover {
-    border-color: var(--accent);
-    background: var(--accent-dim);
-    color: var(--accent);
+  .stack-row:hover {
+    background: var(--card);
   }
 }
 
-@media (max-width: 768px) {
-  .about-row {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .about-row .section-label {
-    padding-top: 0;
-  }
+.about-cv {
+  margin-top: 64px;
 }
 
 @media (max-width: 480px) {
-  .about-facts > div,
-  .skill-group {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-  .skill-group h3 {
-    padding-top: 0;
-  }
   .about-cv .btn {
     width: 100%;
   }

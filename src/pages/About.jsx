@@ -1,4 +1,4 @@
-import { FaDownload } from "react-icons/fa";
+import { FiArrowUpRight, FiDownload } from "react-icons/fi";
 import "../styles/about.css";
 
 const skillGroups = [
@@ -10,81 +10,99 @@ const skillGroups = [
 ];
 
 const facts = [
-  { k: "Ubicación", v: "Buenos Aires, Argentina" },
-  { k: "Estudios", v: "Lic. en Informática, UNAHUR (3er año)" },
-  { k: "Foco", v: "APIs, bases de datos y apps web" },
+  { k: "Ubicación", v: "Buenos Aires, AR" },
+  { k: "Estudios", v: "Lic. en Informática" },
+  { k: "Universidad", v: "UNAHUR · 3er año" },
+  { k: "Foco", v: "APIs, datos y web" },
 ];
 
 export default function About() {
   return (
-    <div className="page">
-      <div className="container container--narrow">
-        <header className="page-head">
-          <span className="eyebrow rise" style={{ "--i": 0 }}>Sobre mí</span>
-          <h1 className="rise" style={{ "--i": 1 }}>
-            APIs robustas y apps web <em>escalables</em>
+    <>
+      <section className="section section--page about-head">
+        <div className="wrap">
+          <span className="label rise" style={{ "--i": 0 }}>Sobre mí</span>
+          <h1 className="about-title em-accent rise" style={{ "--i": 1 }}>
+            APIs robustas y apps web <em>escalables.</em>
           </h1>
-          <p className="rise" style={{ "--i": 2 }}>
-            Developer Full Stack Jr enfocado en construir software que funcione en producción.
+          <p className="lead rise" style={{ "--i": 2 }}>
+            Developer Full Stack Jr enfocado en construir software que funcione
+            en producción.
           </p>
-        </header>
+        </div>
+      </section>
 
-        <section className="about-row">
-          <h2 className="section-label">Biografía</h2>
-          <div className="about-bio">
-            <p>
+      <section className="section about-profile">
+        <div className="wrap about-profile-grid">
+          <span className="label about-profile-label">01 / Biografía</span>
+
+          <div className="about-profile-body">
+            <p className="about-statement">
               Soy Franco Pfahler, tengo 26 años y soy Desarrollador Full Stack Jr con base en
-              Buenos Aires, Argentina. Estudio la Licenciatura en Informática en la Universidad
-              Nacional de Hurlingham (3er año). Me especializo en el diseño e implementación de
-              APIs, arquitecturas de bases de datos y aplicaciones web de alto rendimiento.
-            </p>
-            <p>
-              Mi enfoque está en escribir código limpio, escalable y bien documentado. Disfruto
-              resolver problemas complejos y aprender nuevas tecnologías para entregar soluciones
-              que realmente funcionen en producción y satisfagan la necesidad del cliente.
+              Buenos Aires, Argentina.
             </p>
 
-            <dl className="about-facts">
-              {facts.map(({ k, v }) => (
-                <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
-                </div>
-              ))}
-            </dl>
+            <div className="about-profile-cols">
+              <div className="about-prose">
+                <p>
+                  Estudio la Licenciatura en Informática en la Universidad Nacional de
+                  Hurlingham (3er año). Me especializo en el diseño e implementación de APIs,
+                  arquitecturas de bases de datos y aplicaciones web de alto rendimiento.
+                </p>
+                <p>
+                  Mi enfoque está en escribir código limpio, escalable y bien documentado.
+                  Disfruto resolver problemas complejos y aprender nuevas tecnologías para
+                  entregar soluciones que realmente funcionen en producción y satisfagan la
+                  necesidad del cliente.
+                </p>
+              </div>
+
+              <dl className="about-facts">
+                {facts.map(({ k, v }) => (
+                  <div key={k}>
+                    <dt>{k}</dt>
+                    <dd>{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="about-row">
-          <h2 className="section-label">Tech stack</h2>
-          <div className="skill-groups">
-            {skillGroups.map(({ label, items }) => (
-              <div key={label} className="skill-group">
+      <section className="section">
+        <div className="wrap">
+          <div className="about-stack-head">
+            <span className="label">02 / Tech stack</span>
+            <h2 className="sec-title">Stack &amp; oficio</h2>
+          </div>
+
+          <div>
+            {skillGroups.map(({ label, items }, i) => (
+              <div key={label} className="stack-row">
+                <span className="stack-num">0{i + 1}</span>
                 <h3>{label}</h3>
                 <ul>
                   {items.map((skill) => (
-                    <li key={skill} className="skill-badge">{skill}</li>
+                    <li key={skill}>/ {skill}</li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
-        </section>
 
-        <section className="about-row about-cv">
-          <h2 className="section-label">Currículum</h2>
-          <div>
+          <div className="about-cv">
             {/* Para actualizar el CV, reemplazá el archivo en /public */}
             <a
               href={`${import.meta.env.BASE_URL}cv_FrancoPfahler_Desarrollador2026.pdf`}
               download
               className="btn btn--primary"
             >
-              <FaDownload /> Descargar CV
+              <FiDownload size={16} /> Descargar CV <FiArrowUpRight size={18} />
             </a>
           </div>
-        </section>
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 }

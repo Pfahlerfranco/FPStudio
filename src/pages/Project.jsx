@@ -1,55 +1,61 @@
 import { useParams, Link } from "react-router-dom";
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from "react-icons/fa";
+import { FiArrowLeft, FiArrowUpRight, FiGithub } from "react-icons/fi";
 import { projects } from "./Portfolio";
 import Carousel from "../component/Carousel";
-import "../styles/about.css";
 import "../styles/project.css";
+
+const isLink = (url) => url && url !== "#";
 
 export default function Project() {
   const { id } = useParams();
-  const project = projects.find((p) => p.id === id);
+  const index = projects.findIndex((p) => p.id === id);
+  const project = projects[index];
 
   if (!project) {
     return (
-      <div className="page">
-        <div className="container container--narrow project-not-found">
-          <h1>Proyecto no encontrado</h1>
-          <Link to="/portfolio" className="btn btn--ghost">
-            <FaArrowLeft /> Volver al portfolio
+      <section className="section section--page">
+        <div className="wrap project-not-found">
+          <span className="label">Error / Proyecto</span>
+          <h1 className="sec-title">Proyecto no encontrado</h1>
+          <Link to="/portfolio" className="btn btn--outline">
+            <FiArrowLeft size={16} /> Volver al portfolio
           </Link>
         </div>
-      </div>
+      </section>
     );
   }
 
-  const imageItems = project.images
-    ? project.images.map((url, i) => ({ id: i, image: url, title: `${project.title} - ${i + 1}` }))
-    : [];
-
-  const hasGithub = project.github && project.github !== "#";
-  const hasDemo = project.demo && project.demo !== "#";
+  const imageItems = (project.images ?? []).map((url, i) => ({
+    id: i,
+    image: url,
+    title: `${project.title} - ${i + 1}`,
+  }));
 
   return (
-    <div className="page">
-      <div className="container container--narrow">
+    <section className="section section--page">
+      <div className="wrap">
         <Link to="/portfolio" className="project-back">
-          <FaArrowLeft /> Volver al portfolio
+          <FiArrowLeft size={14} /> Volver al portfolio
         </Link>
 
-        <header className="page-head">
-          {project.soon && <span className="eyebrow rise" style={{ "--i": 0 }}>Próximamente</span>}
-          <h1 className="rise" style={{ "--i": 1 }}>{project.title}</h1>
+        <header className="project-head">
+          <div className="project-head-meta rise" style={{ "--i": 0 }}>
+            <span className="label">{String(index + 1).padStart(2, "0")} / {project.type}</span>
+            {project.soon && <span className="project-soon">Próximamente</span>}
+          </div>
 
-          {(hasGithub || hasDemo) && (
+          <h1 className="project-title rise" style={{ "--i": 1 }}>{project.title}</h1>
+
+          {(isLink(project.github) || isLink(project.demo)) && (
             <div className="project-detail-links rise" style={{ "--i": 2 }}>
-              {hasDemo && (
+              {isLink(project.demo) && (
                 <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
-                  <FaExternalLinkAlt /> Ver demo
+                  Ver demo <FiArrowUpRight size={18} />
                 </a>
               )}
-              {hasGithub && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
-                  <FaGithub /> Ver en GitHub
+              {isLink(project.github) && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn--outline">
+                  <FiGithub size={16} /> Ver en GitHub <FiArrowUpRight size={18} />
                 </a>
               )}
             </div>
@@ -70,20 +76,20 @@ export default function Project() {
           </div>
         )}
 
-        <section className="about-row">
-          <h2 className="section-label">Descripción</h2>
-          <p className="project-desc">{project.description}</p>
-        </section>
+        <div className="detail-row">
+          <h2 className="detail-label">Descripción</h2>
+          <p className="detail-text">{project.description}</p>
+        </div>
 
-        <section className="about-row">
-          <h2 className="section-label">Tecnologías</h2>
-          <ul className="project-detail-tags">
+        <div className="detail-row">
+          <h2 className="detail-label">Tecnologías</h2>
+          <ul className="detail-tags">
             {project.tags.map((tag) => (
-              <li key={tag} className="skill-badge">{tag}</li>
+              <li key={tag}>/ {tag}</li>
             ))}
           </ul>
-        </section>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

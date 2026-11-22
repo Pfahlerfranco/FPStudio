@@ -3,21 +3,19 @@
   inset: 0 0 auto 0;
   z-index: 1000;
   height: var(--header-h);
-  padding-top: env(safe-area-inset-top, 0px);
-  box-sizing: content-box;
 }
 
 /* El material va en un pseudo-elemento: backdrop-filter en .header crearía un
-   containing block y el drawer móvil (position: fixed) quedaría atrapado. */
+   containing block y el menú móvil (position: fixed) quedaría atrapado. */
 .header::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(10, 10, 11, 0.72);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: 1px solid var(--line);
+  background: rgba(10, 11, 10, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
 }
 
 @media (prefers-reduced-transparency: reduce) {

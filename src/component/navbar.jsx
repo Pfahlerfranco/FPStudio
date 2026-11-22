@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
 import "../styles/Navbar.css";
 
 const links = [
   { to: "/", label: "Inicio" },
   { to: "/about", label: "Sobre mí" },
   { to: "/portfolio", label: "Portfolio" },
-  { to: "/contact", label: "Contacto" },
 ];
+const cta = { to: "/contact", label: "Contacto" };
+const mobileLinks = [...links, cta];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
   const closeMenu = () => setIsOpen(false);
 
-  // Escape cierra el drawer; el scroll de la página se bloquea mientras está abierto
+  // Escape cierra el menú; mientras está abierto no se scrollea la página
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e) => e.key === "Escape" && setIsOpen(false);
@@ -34,32 +34,52 @@ export default function Navbar() {
         <span>&lt;</span>FP<span>/&gt;</span>
       </NavLink>
 
-      <button
-        className="hamburger"
-        onClick={() => setIsOpen((v) => !v)}
-        aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-        aria-expanded={isOpen}
-        aria-controls="nav-links"
-      >
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </button>
-
-      <div
-        className={`nav-overlay ${isOpen ? "open" : ""}`}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
-
-      <nav id="nav-links" className={`nav-links ${isOpen ? "open" : ""}`} aria-label="Principal">
+      {/* Escritorio */}
+      <nav className="nav-desktop" aria-label="Principal">
         {links.map(({ to, label }) => (
           <NavLink
             key={to}
             to={to}
             end={to === "/"}
             className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-            onClick={closeMenu}
           >
             {label}
+          </NavLink>
+        ))}
+      </nav>
+
+      <NavLink to={cta.to} className="btn btn--outline nav-cta">
+        {cta.label} <FiArrowUpRight size={14} />
+      </NavLink>
+
+      {/* Móvil */}
+      <button
+        className="menu-btn"
+        onClick={() => setIsOpen((v) => !v)}
+        aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+        aria-expanded={isOpen}
+        aria-controls="mobile-menu"
+      >
+        {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+      </button>
+
+      <nav
+        id="mobile-menu"
+        className={`mobile-menu ${isOpen ? "open" : ""}`}
+        aria-label="Menú móvil"
+        aria-hidden={!isOpen}
+      >
+        {mobileLinks.map(({ to, label }, i) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={to === "/"}
+            className={({ isActive }) => (isActive ? "mobile-link active" : "mobile-link")}
+            onClick={closeMenu}
+            tabIndex={isOpen ? 0 : -1}
+          >
+            {label}
+            <span>0{i + 1}</span>
           </NavLink>
         ))}
       </nav>
