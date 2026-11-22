@@ -6,7 +6,8 @@
     <script>
       // Encode the path as a query string so GitHub Pages redirects to index.html
       // without causing an infinite loop
-      var segmentCount = 1;
+      // 0 porque el sitio vive en la raíz del dominio (francopfahler.com.ar)
+      var segmentCount = 0;
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
